@@ -1,8 +1,10 @@
 package de.fhws.business.rooms.control;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Singleton;
@@ -37,7 +39,7 @@ public class RoomService {
 	}
 
 	public List<RoomEntity> getRooms(Long limit, Long offset) {
-		return rooms.stream().skip(offset).limit(limit).toList();
+		return rooms.stream().skip(offset).limit(limit).collect(Collectors.toList());
 	}
 
 }

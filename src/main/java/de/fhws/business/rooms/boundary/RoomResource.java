@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.jws.WebService;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,7 +16,6 @@ import javax.ws.rs.core.MediaType;
 import de.fhws.business.rooms.control.RoomService;
 import de.fhws.business.rooms.entity.RoomEntity;
 
-@WebService
 @Produces(MediaType.APPLICATION_JSON)
 @Path("rooms")
 public class RoomResource {
@@ -40,18 +38,6 @@ public class RoomResource {
 	public List<RoomEntity> getRooms(@QueryParam("limit") @DefaultValue("100") Long limit,
 			@QueryParam("offset") @DefaultValue("0") Long offset) {
 		return roomService.getRooms(limit, offset);
-	}
-
-	/**
-	 * Bad API Design ... but it's working :-)
-	 * 
-	 * @return rooms
-	 */
-	@GET
-	@Path("xml")
-	@Produces(MediaType.APPLICATION_XML)
-	public List<RoomEntity> getRoomsXML() {
-		return roomService.getRooms(100L, 0L);
 	}
 
 	@GET

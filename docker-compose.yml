@@ -9,6 +9,7 @@ services:
 #      - /root/.docker/config.json:/config.json
 #    environment:
 #      - WATCHTOWER_CLEANUP=true
+#    command: --interval 30
 #
 #  fhws:
 #    image: ghcr.io/matthiasreining/fhws/fhws22-rooms

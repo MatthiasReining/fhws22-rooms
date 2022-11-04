@@ -6,21 +6,15 @@ services:
 #    restart: always
 #    volumes:
 #      - /var/run/docker.sock:/var/run/docker.sock
-#      - /etc/timezone:/etc/timezone:ro
+#      - /root/.docker/config.json:/config.json
 #    environment:
 #      - WATCHTOWER_CLEANUP=true
-##      - WATCHTOWER_LABEL_ENABLE=true
-#      - WATCHTOWER_INCLUDE_RESTARTING=true
-##    labels:
-##      - "com.centurylinklabs.watchtower.enable=true"
-
-
+#
 #  fhws:
 #    image: ghcr.io/matthiasreining/fhws/fhws22-rooms
-#    ports: 
+#    ports:
 #      - "80:8080"
-##    labels:
-##      - "com.centurylinklabs.watchtower.enable=true"
+
 
 
   db:

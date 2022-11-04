@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.jws.WebService;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import de.fhws.business.rooms.control.RoomService;
 import de.fhws.business.rooms.entity.RoomEntity;
 
+@WebService
 @Produces(MediaType.APPLICATION_JSON)
 @Path("rooms")
 public class RoomResource {

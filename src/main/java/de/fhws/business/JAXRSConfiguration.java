@@ -1,4 +1,4 @@
-package sample;
+package de.fhws.business;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

@@ -20,7 +20,7 @@ public class BrowserBlockerFilter extends HttpFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		
-		System.out.println("before chain call");
+		// System.out.println("before chain call");
 		
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		String userAgent = httpRequest.getHeader("User-Agent");
@@ -35,7 +35,7 @@ public class BrowserBlockerFilter extends HttpFilter implements Filter {
 		}
 
 		chain.doFilter(request, response);
-		System.out.println("after chain call");
+		// System.out.println("after chain call");
 	}
 
 }

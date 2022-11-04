@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class RoomEntity {
 
 	private String name;
-	private String building;
+	private BuildingEntity building;
 	private Integer seats;
 	private Integer projectors;
 
@@ -14,7 +14,7 @@ public class RoomEntity {
 		// empty constructor
 	}
 
-	public RoomEntity(String name, String building, Integer seats, Integer projectors) {
+	public RoomEntity(String name, BuildingEntity building, Integer seats, Integer projectors) {
 		this.name = name;
 		this.building = building;
 		this.seats = seats;
@@ -37,11 +37,11 @@ public class RoomEntity {
 		this.seats = seats;
 	}
 
-	public String getBuilding() {
+	public BuildingEntity getBuilding() {
 		return building;
 	}
 
-	public void setBuilding(String building) {
+	public void setBuilding(BuildingEntity building) {
 		this.building = building;
 	}
 

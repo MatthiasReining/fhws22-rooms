@@ -9,18 +9,18 @@ services:
 #      - /etc/timezone:/etc/timezone:ro
 #    environment:
 #      - WATCHTOWER_CLEANUP=true
-#      - WATCHTOWER_LABEL_ENABLE=true
+##      - WATCHTOWER_LABEL_ENABLE=true
 #      - WATCHTOWER_INCLUDE_RESTARTING=true
-#    labels:
-#      - "com.centurylinklabs.watchtower.enable=true"
+##    labels:
+##      - "com.centurylinklabs.watchtower.enable=true"
 
 
 #  fhws:
 #    image: ghcr.io/matthiasreining/fhws/fhws22-rooms
 #    ports: 
 #      - "80:8080"
-#    labels:
-#      - com.centurylinklabs.watchtower.enable="true"
+##    labels:
+##      - "com.centurylinklabs.watchtower.enable=true"
 
 
   db:

@@ -26,4 +26,5 @@ jobs:
     - name: Build the Docker image
       run: | 
         docker build -t de.fhws/fhws22-rooms -t ghcr.io/matthiasreining/fhws/fhws22-rooms . 
+        docker login ghcr.io -u MatthiasReining -p ${{ secrets.DOCKER_REGISTRY_TOKEN }}
         docker push ghcr.io/matthiasreining/fhws/fhws22-rooms

@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres@123
+    volumes:
+      - "./storage/psql:/var/lib/postgresql/data"
+      - "./:/scripts"
+    ports:
+      - "5432:5432"
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    volumes:
+      - "./storage/pgadmin:/var/lib/pgadmin"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@fhws.com
+      PGADMIN_DEFAULT_PASSWORD: admin@123
+    ports:
+      - "5050:80"
+
+

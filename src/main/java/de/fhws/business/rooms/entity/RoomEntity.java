@@ -1,9 +1,15 @@
 package de.fhws.business.rooms.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -28,6 +34,10 @@ public class RoomEntity {
 
 	@NotNull
 	private Integer projectors;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name= "changeLogEntity_id")
+	private List<RoomChangeLogEntity> changeLog = new ArrayList<>();
 
 	public RoomEntity() {
 		// empty constructor
@@ -93,6 +103,14 @@ public class RoomEntity {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public List<RoomChangeLogEntity> getChangeLog() {
+		return changeLog;
+	}
+
+	public void setChangeLog(List<RoomChangeLogEntity> changeLog) {
+		this.changeLog = changeLog;
 	}
 
 }

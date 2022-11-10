@@ -1,5 +1,6 @@
 package de.fhws.business.rooms.control;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import de.fhws.business.rooms.entity.BuildingEntity;
+import de.fhws.business.rooms.entity.RoomChangeLogEntity;
 import de.fhws.business.rooms.entity.CreateRoomDTO;
 import de.fhws.business.rooms.entity.RoomDTO;
 import de.fhws.business.rooms.entity.RoomEntity;
@@ -62,6 +64,19 @@ public class RoomService {
 		re.setProjectors(room.getProjectors());
 		re.setSeats(room.getSeats());
 		
+		
+		RoomChangeLogEntity cle = new RoomChangeLogEntity();
+		cle.setUpdatedAt(LocalDateTime.now());
+		cle.setUpdatedBy("fhws-internal-user");
+		cle.setComment("updated " + re.getName());
+		
+		cle.setRoom(re);
+		
+		re.getChangeLog().add(cle);
+		
+		
+		re = em.merge(re);
+		
 		// no merge required -> re is already an managed JPA entity.
 	}
 
@@ -69,6 +84,8 @@ public class RoomService {
 		RoomEntity re = em.find(RoomEntity.class, id);
 		if (re == null)
 			return null;
+		
+		System.out.println( re.getChangeLog().size() );
 		return re.toDTO();
 	}
 

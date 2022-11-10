@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -16,8 +17,9 @@ import javax.ws.rs.core.MediaType;
 
 import de.fhws.business.rooms.control.BuildingService;
 import de.fhws.business.rooms.control.RoomService;
+import de.fhws.business.rooms.entity.CreateRoomDTO;
 import de.fhws.business.rooms.entity.RoomDTO;
-import de.fhws.business.rooms.entity.RoomEntity;
+import de.fhws.business.rooms.entity.UpdateRoomDTO;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Path("rooms")
@@ -36,8 +38,14 @@ public class RoomResource {
 	}
 
 	@POST
-	public void addRoom(@Valid RoomEntity room) {
+	public void addRoom(@Valid CreateRoomDTO room) {
 		roomService.addRoom(room);
+	}
+	
+	@PUT
+	@Path("{id}")
+	public void updateRoom(@PathParam("id") Long id, @Valid UpdateRoomDTO room) {
+		roomService.updateRoom(id, room);
 	}
 
 	@GET
@@ -48,7 +56,8 @@ public class RoomResource {
 
 	@GET
 	@Path("{id}")
-	public RoomDTO getRoom(@PathParam("id") String id) {
-		return roomService.getRooms(1L, 0L).get(0);
+	public RoomDTO getRoom(@PathParam("id") Long id) {
+		System.out.println("id: " + id);
+		return roomService.getRoom(id);
 	}
 }

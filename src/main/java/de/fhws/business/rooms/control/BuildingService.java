@@ -20,11 +20,16 @@ public class BuildingService {
 	}
 
 	public BuildingDTO getBuiling(String name) {
-		return em.createQuery("SELECT b FROM BuildingEntity b WHERE b.name = :name", BuildingEntity.class)
-				.setParameter("name", name)
-				.getSingleResult()
-				.toDTO();
+		return getBuilingEntity(name).toDTO();
 	}
+	
+	public BuildingEntity getBuilingEntity(String name) {
+		return em.createNamedQuery(BuildingEntity.QUERY_BY_NAME, BuildingEntity.class)
+				.setParameter(BuildingEntity.PARAM_NAME, name)
+				.getSingleResult();
+	}
+	
+	
 
 	public BuildingDTO getBuilingNullCheckProgrammed(String name) {
 		List<BuildingEntity> buildingEntities = em

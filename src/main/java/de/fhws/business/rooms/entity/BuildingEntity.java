@@ -5,12 +5,18 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
+@NamedQuery(name = BuildingEntity.QUERY_BY_NAME, query = "SELECT b FROM BuildingEntity b WHERE b.name = :" + BuildingEntity.PARAM_NAME)
 public class BuildingEntity {
+	
+	public static final String QUERY_BY_NAME = "queryByName";
+	public static final String PARAM_NAME = "name";
+	
 
 	@Id
 	@GeneratedValue

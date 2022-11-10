@@ -1,9 +1,22 @@
 package de.fhws.business.rooms.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class RoomEntity {
 
+	@Id
+	@GeneratedValue
+	private Long id;
+
 	private String name;
+	
+	@ManyToOne
 	private BuildingEntity building;
+	
 	private Integer seats;
 	private Integer projectors;
 

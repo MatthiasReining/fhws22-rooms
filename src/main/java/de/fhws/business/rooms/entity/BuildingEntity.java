@@ -1,7 +1,16 @@
 package de.fhws.business.rooms.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class BuildingEntity {
 
+	@Id
+	@GeneratedValue
+	private Long id;
+	
 	private String name;
 	private String addressLine1;
 	private String addressLine2;
@@ -38,6 +47,14 @@ public class BuildingEntity {
 
 	public void setAddressLine2(String addressLine2) {
 		this.addressLine2 = addressLine2;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

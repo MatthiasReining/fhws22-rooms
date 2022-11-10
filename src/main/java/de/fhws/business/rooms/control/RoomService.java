@@ -1,45 +1,45 @@
 package de.fhws.business.rooms.control;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import de.fhws.business.rooms.entity.BuildingEntity;
 import de.fhws.business.rooms.entity.RoomEntity;
 
-@Singleton
+@Transactional
 public class RoomService {
 
-	public RoomService() {
-		System.out.println("RoomService#constructor");
-	}
+	@PersistenceContext
+	EntityManager em;
 
-	private static List<RoomEntity> rooms = new ArrayList<>();
+	@Inject
+	BuildingService buildingService;
 
-	@PostConstruct
-	public void init() {
+	public void initDummyData() {
 
-		BuildingEntity shl = new BuildingEntity("SHL", "Sanderheinrichsleitenweg 20", "97074 Würzburg");
-		BuildingEntity ms = new BuildingEntity("MS", "Münzstraße 12", "97070 Würzburg");
+		BuildingEntity shl = buildingService
+				.addBuilding(new BuildingEntity("SHL", "Sanderheinrichsleitenweg 20", "97074 Würzburg"));
+		BuildingEntity ms = buildingService.addBuilding(new BuildingEntity("MS", "Münzstraße 12", "97070 Würzburg"));
 
-		for (int i = 0; i < 100000; i++) {
-			rooms.add(new RoomEntity("I1 " + new Date(), i % 2 == 0 ? shl : ms, ((i % 3) + 1) * 10, 2));
-
+		for (int i = 0; i < 10; i++) {
+			RoomEntity room = new RoomEntity("I1 " + new Date(), i % 2 == 0 ? shl : ms, ((i % 3) + 1) * 10, 2);
+			addRoom(room);
 		}
-
 	}
 
 	public void addRoom(RoomEntity room) {
-		rooms.add(room);
+		em.persist(room);
 	}
 
 	public List<RoomEntity> getRooms(Long limit, Long offset) {
-		return rooms.stream().skip(offset).limit(limit).collect(Collectors.toList());
+		// TODO implement limit and offset
+		return em.createQuery("SELECT r FROM RoomEntity r", RoomEntity.class).getResultList();
 	}
 
 }

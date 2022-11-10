@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -13,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import de.fhws.business.rooms.control.BuildingService;
 import de.fhws.business.rooms.control.RoomService;
 import de.fhws.business.rooms.entity.RoomEntity;
 
@@ -22,6 +24,9 @@ public class RoomResource {
 
 	@Inject
 	RoomService roomService;
+	
+	@Inject
+	BuildingService buildingService;
 
 	@GET
 	@Path("ping")
@@ -30,7 +35,7 @@ public class RoomResource {
 	}
 
 	@POST
-	public void addRoom(RoomEntity room) {
+	public void addRoom(@Valid RoomEntity room) {
 		roomService.addRoom(room);
 	}
 

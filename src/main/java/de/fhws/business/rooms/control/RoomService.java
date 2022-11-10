@@ -35,6 +35,7 @@ public class RoomService {
 
 	public void addRoom(RoomEntity room) {
 		em.persist(room);
+		System.out.println("room " + room.getId());
 	}
 
 	public List<RoomEntity> getRooms(Long limit, Long offset) {

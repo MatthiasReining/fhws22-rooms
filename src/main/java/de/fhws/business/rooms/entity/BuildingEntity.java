@@ -3,6 +3,8 @@ package de.fhws.business.rooms.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 public class BuildingEntity {
@@ -10,9 +12,15 @@ public class BuildingEntity {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
+	@NotEmpty
+	@Size(max = 50)
 	private String name;
+	@NotEmpty
+	@Size(max = 400)
 	private String addressLine1;
+	@NotEmpty
+	@Size(max = 400)
 	private String addressLine2;
 
 	public BuildingEntity() {

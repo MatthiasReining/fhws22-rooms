@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class RoomEntity {
@@ -12,12 +16,17 @@ public class RoomEntity {
 	@GeneratedValue
 	private Long id;
 
+	@NotEmpty
+	@Size(max = 50)
 	private String name;
 	
 	@ManyToOne
 	private BuildingEntity building;
 	
+	@Min(1)
 	private Integer seats;
+	
+	@NotNull
 	private Integer projectors;
 
 	public RoomEntity() {
@@ -61,6 +70,14 @@ public class RoomEntity {
 
 	public void setProjectors(Integer projectors) {
 		this.projectors = projectors;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

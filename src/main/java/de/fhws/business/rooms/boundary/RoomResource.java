@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 
 import de.fhws.business.rooms.control.BuildingService;
 import de.fhws.business.rooms.control.RoomService;
+import de.fhws.business.rooms.entity.RoomDTO;
 import de.fhws.business.rooms.entity.RoomEntity;
 
 @Produces(MediaType.APPLICATION_JSON)
@@ -40,14 +41,14 @@ public class RoomResource {
 	}
 
 	@GET
-	public List<RoomEntity> getRooms(@QueryParam("limit") @DefaultValue("100") Long limit,
+	public List<RoomDTO> getRooms(@QueryParam("limit") @DefaultValue("100") Long limit,
 			@QueryParam("offset") @DefaultValue("0") Long offset) {
 		return roomService.getRooms(limit, offset);
 	}
 
 	@GET
 	@Path("{id}")
-	public RoomEntity getRoom(@PathParam("id") String id) {
+	public RoomDTO getRoom(@PathParam("id") String id) {
 		return roomService.getRooms(1L, 0L).get(0);
 	}
 }

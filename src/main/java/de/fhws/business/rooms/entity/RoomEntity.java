@@ -19,13 +19,13 @@ public class RoomEntity {
 	@NotEmpty
 	@Size(max = 50)
 	private String name;
-	
+
 	@ManyToOne
 	private BuildingEntity building;
-	
+
 	@Min(1)
 	private Integer seats;
-	
+
 	@NotNull
 	private Integer projectors;
 
@@ -38,6 +38,21 @@ public class RoomEntity {
 		this.building = building;
 		this.seats = seats;
 		this.projectors = projectors;
+	}
+
+	public RoomDTO toDTO() {
+		RoomDTO room = new RoomDTO();
+
+		room.setId(this.getId());
+		room.setName(this.getName());
+		room.setProjectors(this.getProjectors());
+		room.setSeats(this.getSeats());
+
+		if (this.getBuilding() != null) {
+			room.setBuildingName(this.getBuilding().getName());
+		}
+
+		return room;
 	}
 
 	public String getName() {

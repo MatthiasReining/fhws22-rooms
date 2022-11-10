@@ -26,7 +26,7 @@ public class RoomResource {
 	@GET
 	@Path("ping")
 	public String ping() {
-		return "I'm here at FHWS 👍 - new block, new luck " + new Date();
+		return "I'm here at FHWS 👍😊 - new block, new luck " + new Date();
 	}
 
 	@POST

@@ -16,10 +16,9 @@ ENV DB_USER=fhws
 ENV DB_PASSWORD=fhws@123 
 ENV DB_CONN_MAXACTIVE=25
 ENV DB_CONN_MINIDLE=5
-ENV DB_URL=
 
-
-
+# works only for postgres
+ENV DB_URL="jdbc:$DB_DRIVER://$DB_HOST:$DB_PORT/$DB_DATABASE$DB_JDBC_DRIVER_APPENDIX"
 
 ADD src/assembly/docker/config ${WILDFLY_HOME}/bin/
 ADD src/assembly/docker/modules /tmp
@@ -31,6 +30,7 @@ USER jboss
 RUN cd ${WILDFLY_HOME}/bin && ./jboss-cli.sh --file=custom-configurations.cli
 RUN cd ${WILDFLY_HOME}/bin && ./jboss-cli.sh --file=add-datasources-offline.cli
 
+RUN rm -rf $WILDFLY_HOME/standalone/configuration/standalone_xml_history/*
 
 COPY target/fhws22-rooms.war /opt/jboss/wildfly/standalone/deployments/
 
@@ -39,6 +39,6 @@ COPY target/fhws22-rooms.war /opt/jboss/wildfly/standalone/deployments/
 # you have different DB_URL syntax and you need a script to decide...
 
 # Set the default entrypoint to run on boot
-ENTRYPOINT ["/opt/jboss/wildfly/bin/docker-entrypoint.sh"]                                    
+# ENTRYPOINT ["/opt/jboss/wildfly/bin/docker-entrypoint.sh"]                                    
 
-CMD ["-b", "0.0.0.0"]
+# CMD ["-b", "0.0.0.0"]

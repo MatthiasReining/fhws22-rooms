@@ -1,6 +1,6 @@
 package de.fhws.business.rooms.entity;
 
-public class BuildingDTO {
+public class Building {
 
 	private String name;
 	private String addressLine1;

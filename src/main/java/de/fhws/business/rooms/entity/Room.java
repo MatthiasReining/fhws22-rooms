@@ -1,6 +1,6 @@
 package de.fhws.business.rooms.entity;
 
-public class RoomDTO {
+public class Room {
 
 	private Long id;
 	private String name;

@@ -1,22 +1,27 @@
 package de.fhws.business.rooms.entity;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
-import javax.persistence.PrePersist;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@NamedQuery(name = BuildingEntity.QUERY_BY_NAME, query = "SELECT b FROM BuildingEntity b WHERE b.name = :" + BuildingEntity.PARAM_NAME)
+@Table(name = "Building")
+@NamedQuery(name = BuildingEntity.QUERY_BY_NAME, query = "SELECT b FROM BuildingEntity b WHERE b.name = :"
+		+ BuildingEntity.PARAM_NAME)
 public class BuildingEntity {
-	
+
 	public static final String QUERY_BY_NAME = "queryByName";
 	public static final String PARAM_NAME = "name";
-	
 
 	@Id
 	@GeneratedValue
@@ -32,7 +37,8 @@ public class BuildingEntity {
 	@Size(max = 400)
 	private String addressLine2;
 
-	private LocalDateTime createdAt;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<ChangeLogEntity> changeLog = new ArrayList<>();
 
 	public BuildingEntity() {
 		// empty constructor
@@ -44,19 +50,13 @@ public class BuildingEntity {
 		this.addressLine2 = addressLine2;
 	}
 
-	public BuildingDTO toDTO() {
-		BuildingDTO building = new BuildingDTO();
+	public Building toDTO() {
+		Building building = new Building();
 
 		building.setName(this.getName());
 		building.setAddressLine1(this.getAddressLine1());
 		building.setAddressLine2(this.getAddressLine2());
 		return building;
-	}
-
-	@PrePersist
-	public void preSave() {
-		if (this.createdAt == null)
-			this.createdAt = LocalDateTime.now();
 	}
 
 	public String getName() {
@@ -91,12 +91,12 @@ public class BuildingEntity {
 		this.id = id;
 	}
 
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
+	public List<ChangeLogEntity> getChangeLog() {
+		return changeLog;
 	}
 
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
+	public void setChangeLog(List<ChangeLogEntity> changeLog) {
+		this.changeLog = changeLog;
 	}
 
 }

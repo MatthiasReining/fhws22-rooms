@@ -5,10 +5,12 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
 
 @Entity
-public class RoomChangeLogEntity {
+@Table(name = "ChangeLog")
+public class ChangeLogEntity {
 
 	@Id
 	@GeneratedValue
@@ -19,9 +21,11 @@ public class RoomChangeLogEntity {
 	private String updatedBy;
 	private String comment;
 	
-	@ManyToOne
-	private RoomEntity room;
-
+	@PrePersist
+	public void prePersist() {
+		this.updatedAt = LocalDateTime.now();
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -52,14 +56,6 @@ public class RoomChangeLogEntity {
 
 	public void setComment(String comment) {
 		this.comment = comment;
-	}
-
-	public RoomEntity getRoom() {
-		return room;
-	}
-
-	public void setRoom(RoomEntity room) {
-		this.room = room;
 	}
 
 }

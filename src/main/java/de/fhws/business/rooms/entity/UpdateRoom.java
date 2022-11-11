@@ -5,11 +5,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class CreateRoomDTO {
-
-	@NotEmpty
-	@Size(max = 50)
-	private String name;
+public class UpdateRoom {
 
 	@NotEmpty
 	@Size(max = 50)
@@ -19,14 +15,6 @@ public class CreateRoomDTO {
 	private Integer seats;
 	@NotNull
 	private Integer projectors;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getBuildingName() {
 		return buildingName;

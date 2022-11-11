@@ -17,9 +17,9 @@ import javax.ws.rs.core.MediaType;
 
 import de.fhws.business.rooms.control.BuildingService;
 import de.fhws.business.rooms.control.RoomService;
-import de.fhws.business.rooms.entity.CreateRoomDTO;
-import de.fhws.business.rooms.entity.RoomDTO;
-import de.fhws.business.rooms.entity.UpdateRoomDTO;
+import de.fhws.business.rooms.entity.CreateRoom;
+import de.fhws.business.rooms.entity.Room;
+import de.fhws.business.rooms.entity.UpdateRoom;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Path("rooms")
@@ -38,25 +38,25 @@ public class RoomResource {
 	}
 
 	@POST
-	public void addRoom(@Valid CreateRoomDTO room) {
+	public void addRoom(@Valid CreateRoom room) {
 		roomService.addRoom(room);
 	}
 	
 	@PUT
 	@Path("{id}")
-	public void updateRoom(@PathParam("id") Long id, @Valid UpdateRoomDTO room) {
+	public void updateRoom(@PathParam("id") Long id, @Valid UpdateRoom room) {
 		roomService.updateRoom(id, room);
 	}
 
 	@GET
-	public List<RoomDTO> getRooms(@QueryParam("limit") @DefaultValue("100") Long limit,
+	public List<Room> getRooms(@QueryParam("limit") @DefaultValue("100") Long limit,
 			@QueryParam("offset") @DefaultValue("0") Long offset) {
 		return roomService.getRooms(limit, offset);
 	}
 
 	@GET
 	@Path("{id}")
-	public RoomDTO getRoom(@PathParam("id") Long id) {
+	public Room getRoom(@PathParam("id") Long id) {
 		System.out.println("id: " + id);
 		return roomService.getRoom(id);
 	}

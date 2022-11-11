@@ -11,11 +11,11 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import de.fhws.business.rooms.entity.BuildingEntity;
-import de.fhws.business.rooms.entity.RoomChangeLogEntity;
-import de.fhws.business.rooms.entity.CreateRoomDTO;
-import de.fhws.business.rooms.entity.RoomDTO;
+import de.fhws.business.rooms.entity.ChangeLogEntity;
+import de.fhws.business.rooms.entity.CreateRoom;
+import de.fhws.business.rooms.entity.Room;
 import de.fhws.business.rooms.entity.RoomEntity;
-import de.fhws.business.rooms.entity.UpdateRoomDTO;
+import de.fhws.business.rooms.entity.UpdateRoom;
 
 @Transactional
 public class RoomService {
@@ -32,7 +32,7 @@ public class RoomService {
 		buildingService.addBuilding(new BuildingEntity("MS", "Münzstraße 12", "97070 Würzburg"));
 
 		for (int i = 0; i < 10; i++) {
-			CreateRoomDTO room = new CreateRoomDTO();
+			CreateRoom room = new CreateRoom();
 			room.setBuildingName(i % 2 == 0 ? "SHL" : "MS");
 			room.setName("I1 " + new Date());
 			room.setProjectors(2);
@@ -41,19 +41,25 @@ public class RoomService {
 		}
 	}
 
-	public void addRoom(CreateRoomDTO room) {
+	public void addRoom(CreateRoom room) {
 		RoomEntity re = new RoomEntity();
 
 		re.setName(room.getName());
 		re.setProjectors(room.getProjectors());
 		re.setSeats(room.getSeats());
 		re.setBuilding(buildingService.getBuilingEntity(room.getBuildingName()));
+		
+		ChangeLogEntity cl = new ChangeLogEntity();
+		cl.setComment("New Room");
+		cl.setUpdatedBy("fhws");
+		
+		re.getChangeLog().add(cl);
 
 		em.persist(re);
 		System.out.println("room " + re.getId());
 	}
 
-	public void updateRoom(Long id, UpdateRoomDTO room) {
+	public void updateRoom(Long id, UpdateRoom room) {
 		RoomEntity re = em.find(RoomEntity.class, id);
 
 		if (!re.getBuilding().getName().equals(room.getBuildingName())) {
@@ -64,23 +70,14 @@ public class RoomService {
 		re.setProjectors(room.getProjectors());
 		re.setSeats(room.getSeats());
 		
-		
-		RoomChangeLogEntity cle = new RoomChangeLogEntity();
-		cle.setUpdatedAt(LocalDateTime.now());
-		cle.setUpdatedBy("fhws-internal-user");
-		cle.setComment("updated " + re.getName());
-		
-		cle.setRoom(re);
-		
-		re.getChangeLog().add(cle);
-		
-		
-		re = em.merge(re);
-		
-		// no merge required -> re is already an managed JPA entity.
+		ChangeLogEntity cl = new ChangeLogEntity();
+		cl.setComment("Update Room");
+		cl.setUpdatedBy("fhws");		
+		re.getChangeLog().add(cl);
+				
 	}
 
-	public RoomDTO getRoom(Long id) {
+	public Room getRoom(Long id) {
 		RoomEntity re = em.find(RoomEntity.class, id);
 		if (re == null)
 			return null;
@@ -89,7 +86,7 @@ public class RoomService {
 		return re.toDTO();
 	}
 
-	public List<RoomDTO> getRooms(Long limit, Long offset) {
+	public List<Room> getRooms(Long limit, Long offset) {
 		// TODO implement limit and offset
 		List<RoomEntity> roomEntities = em.createQuery("SELECT r FROM RoomEntity r", RoomEntity.class).getResultList();
 

@@ -8,15 +8,16 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table(name = "Room")
 public class RoomEntity {
 
 	@Id
@@ -37,8 +38,7 @@ public class RoomEntity {
 	private Integer projectors;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name= "changeLogEntity_id")
-	private List<RoomChangeLogEntity> changeLog = new ArrayList<>();
+	private List<ChangeLogEntity> changeLog = new ArrayList<>();
 
 	public RoomEntity() {
 		// empty constructor
@@ -51,8 +51,8 @@ public class RoomEntity {
 		this.projectors = projectors;
 	}
 
-	public RoomDTO toDTO() {
-		RoomDTO room = new RoomDTO();
+	public Room toDTO() {
+		Room room = new Room();
 
 		room.setId(this.getId());
 		room.setName(this.getName());
@@ -106,11 +106,11 @@ public class RoomEntity {
 		this.id = id;
 	}
 
-	public List<RoomChangeLogEntity> getChangeLog() {
+	public List<ChangeLogEntity> getChangeLog() {
 		return changeLog;
 	}
 
-	public void setChangeLog(List<RoomChangeLogEntity> changeLog) {
+	public void setChangeLog(List<ChangeLogEntity> changeLog) {
 		this.changeLog = changeLog;
 	}
 

@@ -8,7 +8,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import de.fhws.business.rooms.control.BuildingService;
-import de.fhws.business.rooms.entity.BuildingDTO;
+import de.fhws.business.rooms.entity.Building;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Path("bulidings")
@@ -19,7 +19,7 @@ public class BulidingResource {
 
 	@GET
 	@Path("{name}")
-	public BuildingDTO getBulding(@PathParam("name") String name) {
+	public Building getBulding(@PathParam("name") String name) {
 		
 		// here we work with a business key and not with the technical internal database id
 		

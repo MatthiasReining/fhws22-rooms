@@ -1,4 +1,4 @@
-package de.fhws.basics;
+package de.fhws.basics.servlets;
 
 import java.util.Enumeration;
 

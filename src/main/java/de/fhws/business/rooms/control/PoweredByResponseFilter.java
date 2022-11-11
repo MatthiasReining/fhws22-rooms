@@ -13,7 +13,7 @@ public class PoweredByResponseFilter implements ContainerResponseFilter {
 	@Override
 	public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext)
 			throws IOException {
-		System.out.println("PoweredByResponseFilter#filter");
+		// System.out.println("PoweredByResponseFilter#filter");
 		responseContext.getHeaders().add("X-Powered-By", "FHWS :-)");		
 	}
 

@@ -34,6 +34,8 @@ public class RoomService {
 
 	public void initDummyData() {
 		
+		if (true) return;
+		
 //		if (!System.getenv("STAGE").equalsIgnoreCase("dev")) {
 //			return; 
 //		}

@@ -1,0 +1,15 @@
+embed-server --server-config=${server.config:standalone.xml}
+
+module add --name=org.postgres --resources=/tmp/postgresql-42.5.0.jar --dependencies=javax.api,javax.transaction.api
+
+/subsystem=datasources/jdbc-driver=postgresql:add(driver-name=postgresql,driver-module-name=org.postgres,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
+
+
+data-source add --name=FhwsPool --jndi-name=java:jboss/datasources/FhwsDS --driver-name=${env.DB_DRIVER} --use-ccm=false --blocking-timeout-wait-millis=5000 --enabled=true
+/subsystem=datasources/data-source=FhwsPool: write-attribute(name=user-name, value=${env.DB_USER})
+/subsystem=datasources/data-source=FhwsPool: write-attribute(name=password, value=${env.DB_PASSWORD})
+/subsystem=datasources/data-source=FhwsPool: write-attribute(name=connection-url, value=${env.DB_URL})
+/subsystem=datasources/data-source=FhwsPool: write-attribute(name=max-pool-size, value=${env.DB_CONN_MAXACTIVE})
+/subsystem=datasources/data-source=FhwsPool: write-attribute(name=min-pool-size, value=${env.DB_CONN_MINIDLE})
+
+

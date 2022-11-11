@@ -1,0 +1,4 @@
+embed-server --server-config=${server.config:standalone.xml}
+
+# enable property replacement in spec-descriptor/configuration files like persistence.xml
+/subsystem=ee:write-attribute(name="spec-descriptor-property-replacement",value="true")

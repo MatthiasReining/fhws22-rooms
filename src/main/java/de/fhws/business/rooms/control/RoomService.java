@@ -10,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import de.fhws.business.rooms.entity.BuildingEntity;
 import de.fhws.business.rooms.entity.ChangeLogEntity;
 import de.fhws.business.rooms.entity.CreateRoom;
@@ -25,8 +27,16 @@ public class RoomService {
 
 	@Inject
 	BuildingService buildingService;
+	
+//    @Inject
+//    @ConfigProperty(name="SRV_STAGE", defaultValue = "dev")
+//    private String stage;
 
 	public void initDummyData() {
+		
+//		if (!System.getenv("STAGE").equalsIgnoreCase("dev")) {
+//			return; 
+//		}
 
 		buildingService.addBuilding(new BuildingEntity("SHL", "Sanderheinrichsleitenweg 20", "97074 Würzburg"));
 		buildingService.addBuilding(new BuildingEntity("MS", "Münzstraße 12", "97070 Würzburg"));

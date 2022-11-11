@@ -1,4 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+# line break must be LF
+# see https://www.koskila.net/how-to-fix-exec-user-process-caused-no-such-file-or-directory-in-docker-on-windows/
+
+set -e
 
 export DB_URL="jdbc:${DB_DRIVER}://${DB_HOST}:${DB_PORT}/${DB_DATABASE}${DB_JDBC_DRIVER_APPENDIX}"
 

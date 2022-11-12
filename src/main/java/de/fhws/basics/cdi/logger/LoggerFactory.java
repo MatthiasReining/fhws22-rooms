@@ -16,6 +16,7 @@ public class LoggerFactory {
 	@Produces
 	@LoggerType(Type.CONSOLE)
 	public Logger produceConsoleLogger() {
+		// produces a new instance but NOT CDI managed
 		return new LoggerConsole();
 
 	}
@@ -23,6 +24,7 @@ public class LoggerFactory {
 	@Produces
 	@LoggerType(Type.DB)
 	public Logger produceMessageSmart() {
+		// produces a CDI managed bean
 		Bean<LoggerDB> bean = (Bean<LoggerDB>) beanManager.getBeans(LoggerDB.class).iterator().next();
 		CreationalContext<LoggerDB> ctx = beanManager.createCreationalContext(bean);
 

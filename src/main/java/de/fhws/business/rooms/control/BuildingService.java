@@ -31,7 +31,7 @@ public class BuildingService {
 
 		BuildingEntity newBuilding = em.merge(building);
 		System.out.println("for fire newBuilding event");
-		newBuidlingEvent.fire(building.toDTO());
+		newBuidlingEvent.fireAsync(building.toDTO());
 		System.out.println("nach fire newBuilding event");
 
 		return newBuilding;
